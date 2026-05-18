@@ -23,5 +23,6 @@ void editRecord();          //EDIT RECORD WILL BE ADDED//
 void deleteRecord();
 void displayShort();
 void displayFull();
+void updateRecord();
 
 #endif

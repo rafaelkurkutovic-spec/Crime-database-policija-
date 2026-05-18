@@ -22,16 +22,16 @@ void createRecord() {
     printf("\nAuto ID: %d\n", records[count].id);
 
     printf("First name: ");
-    scanf("%s", records[count].firstName);
+    scanf("%s",records[count].firstName);
 
     printf("Last name: ");
-    scanf("%s", records[count].lastName);
+    scanf("%s",records[count].lastName);
 
     printf("Age: ");
     scanf("%d", &records[count].age);
 
     printf("Crime: ");
-    scanf("%s", records[count].crime);
+    scanf("%s",records[count].crime);
 
     printf("Description (max 250 characters): ");
     scanf(" %[^\n]", records[count].description);
@@ -121,4 +121,58 @@ void deleteRecord() {
 }
 
 
-//EDIT RECORD WILL BE ADDED//
+void updateRecord() {
+
+    int id;
+    int found = 0;
+
+    printf("Enter ID to update: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < count; i++) {
+
+        if (records[i].id == id) {
+
+            found = 1;
+
+            printf("\nRecord found!\n");
+
+            printf("Current name: %s\n", records[i].firstName);
+            printf("New first name: ");
+            scanf("%49s", records[i].firstName);
+
+            printf("Current surname: %s\n", records[i].lastName);
+            printf("New last name: ");
+            scanf("%49s", records[i].lastName);
+
+            printf("Current age: %d\n", records[i].age);
+            printf("New age: ");
+            scanf("%d", &records[i].age);
+
+            printf("Current crime: %s\n", records[i].crime);
+            printf("New crime: ");
+            scanf("%99s", records[i].crime);
+
+            printf("Current description: %s\n", records[i].description);
+            printf("New description: ");
+            getchar();                                                          // očisti newline
+            fgets(records[i].description, 250, stdin);
+            records[i].description[
+                strcspn(records[i].description, "\n")
+            ] = 0;
+
+            printf("Current status: %s\n", records[i].status);
+            printf("New status (OPEN/CLOSED): ");
+            scanf("%19s", records[i].status);
+
+            printf("\nRecord updated successfully!\n");
+
+            saveRecords();
+            return;
+        }
+    }
+
+    if (!found) {
+        printf("Record not found!\n");
+    }
+}
