@@ -176,3 +176,40 @@ void updateRecord() {
         printf("Record not found!\n");
     }
 }
+
+
+
+
+void searchByID() {
+
+    int id;
+    int found = 0;
+
+    printf("Enter ID to search:");
+    scanf("%d", &id);
+
+    for (int i = 0; i < count; i++) {
+        
+        if (records[i].id == id) {
+            found = 1;
+
+            printf("\n====================\n");
+            printf("ID: %d\n", records[i].id);
+            printf("Name:%s %s\n", records[i].firstName, records[i].lastName);
+            printf("Age: %d\n", records[i].age);
+            printf("Crime: %s\n", records[i].crime);
+            printf("Description: %d\n", records[i].description);
+            printf("Status: %d\n", records[i].status);
+            printf("======================\n");
+            return;
+        }
+    }
+
+    if (!found) {
+
+        printf("record bot found!\n");
+    }
+}
+
+
+

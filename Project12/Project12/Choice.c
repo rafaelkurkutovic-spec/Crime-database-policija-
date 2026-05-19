@@ -24,6 +24,8 @@ int main() {
 
         switch (choice) {
         case 1: createRecord(); break;
+        case 2: searchByID(); break;
+        case 3: searchByName(); break;
         case 4: displayShort(); break;
         case 5: displayFull(); break;
         case 6: updateRecord(); break;

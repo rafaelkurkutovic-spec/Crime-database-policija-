@@ -19,10 +19,12 @@ extern int nextID;
 void loadRecords();
 void saveRecords();
 void createRecord();
-void editRecord();          //EDIT RECORD WILL BE ADDED//
+void editRecord();          
 void deleteRecord();
 void displayShort();
 void displayFull();
 void updateRecord();
+void searchByID();
+void searchByName();
 
 #endif
