@@ -1,0 +1,209 @@
+________________________________________
+1. CRUD operacije
+Projekt sadrži sve osnovne CRUD operacije:
+•	Create → createRecord()
+•	Read → displayShort() i displayFull()
+•	Update → updateRecord()
+•	Delete → deleteRecord()
+Dokaz iz koda
+case MENU_CREATE: createRecord(); break;
+case MENU_UPDATE: updateRecord(); break;
+case MENU_DELETE: deleteRecord(); break;
+void displayShort();
+void displayFull();
+________________________________________
+2. Primjena primitivnih tipova podataka
+Projekt koristi osnovne primitivne tipove podataka poput int i char.
+Dokaz iz koda
+int id;
+int age;
+char firstName[MAX_NAME];
+char lastName[MAX_NAME];
+________________________________________
+3. Primjena složenih tipova podataka
+Koriste se strukture i enumeracije.
+Dokaz iz koda
+typedef struct {
+    int id;
+    char firstName[MAX_NAME];
+    char lastName[MAX_NAME];
+    int age;
+    char crime[MAX_CRIME];
+    char description[MAX_DESCRIPTION];
+    Status status;
+} Record;
+________________________________________
+4. Primjena typedef i enum tipova
+Projekt koristi typedef zajedno sa struct i enum tipovima.
+Dokaz iz koda
+typedef enum {
+    OPEN,
+    CLOSED,
+    COLD
+} Status;
+________________________________________
+5. Konzistentno imenovanje identifikatora
+Projekt koristi camelCase način imenovanja funkcija i varijabli.
+Dokaz iz koda
+void createRecord();
+void deleteRecord();
+void searchByName();
+________________________________________
+6. Primjena ključne riječi static
+Korištene su statičke varijable i funkcije.
+Dokaz iz koda
+static const char* FILE_NAME = "records.dat";
+static const char* TEMP_FILE = "temp.dat";
+static inline void clearInputBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+________________________________________
+7. Organizacija izvornog koda
+Projekt je organiziran u više datoteka:
+•	choice.c
+•	records.c
+•	records.h
+Na taj način kod je pregledniji i lakši za održavanje.
+________________________________________
+8. Primjena extern ključne riječi
+Globalne varijable deklarirane su pomoću extern.
+Dokaz iz koda
+extern Record* records;
+extern int count;
+extern int nextID;
+________________________________________
+9. Inline funkcije
+Projekt koristi inline funkciju za jednostavne operacije.
+Dokaz iz koda
+static inline void clearInputBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+________________________________________
+10. Izbornik
+Projekt sadrži glavni izbornik za odabir funkcionalnosti.
+Dokaz iz koda
+printf("\n===== POLICE RECORD SYSTEM =====\n");
+printf("1.Create\n2.Search ID\n3.Search Name\n4.Short\n5.Full\n");
+printf("6.Update\n7.Delete\n8.Save\n9.Sort\n10.Exit\nChoice: ");
+________________________________________
+11. Enum tipovi za izbornik
+Za izbornik je korišten enum tip.
+Dokaz iz koda
+typedef enum {
+    MENU_CREATE = 1,
+    MENU_SEARCH_ID,
+    MENU_SEARCH_NAME,
+    MENU_SHORT,
+    MENU_FULL,
+    MENU_UPDATE,
+    MENU_DELETE,
+    MENU_SAVE,
+    MENU_SORT,
+    MENU_EXIT
+} Menu;
+________________________________________
+12. Upotreba pokazivača
+Projekt koristi pokazivače za rad s memorijom i datotekama.
+Dokaz iz koda
+Record* records = NULL;
+FILE* file = fopen(FILE_NAME, "rb");
+________________________________________
+13. Primjena struktura i funkcija
+Projekt koristi strukture i funkcije za organizaciju podataka i funkcionalnosti.
+Dokaz iz koda
+void createRecord();
+void deleteRecord();
+void updateRecord();
+________________________________________
+14. Zaštita parametara i provjera unosa
+Projekt provjerava ispravnost korisničkog unosa.
+Dokaz iz koda
+if (scanf("%d", &choice) != 1) {
+    printf("Invalid input.\n");
+    while (getchar() != '\n');
+    continue;
+}
+________________________________________
+15. Statički zauzeta polja bez VLA polja
+Projekt koristi statički definirana polja.
+Dokaz iz koda
+#define MAX_NAME 50
+#define MAX_CRIME 100
+#define MAX_DESCRIPTION 250
+char firstName[MAX_NAME];
+char description[MAX_DESCRIPTION];
+________________________________________
+16. Dinamičko zauzimanje memorije
+Projekt koristi dinamičko zauzimanje memorije.
+Dokaz iz koda
+Record* temp = realloc(records, (count + 1) * sizeof(Record));
+records = calloc(count, sizeof(Record));
+________________________________________
+17. Korištenje malloc/calloc/realloc/free
+Projekt koristi funkcije za upravljanje memorijom.
+Dokaz iz koda
+records = calloc(count, sizeof(Record));
+Record* temp = realloc(records, count * sizeof(Record));
+free(records);
+records = NULL;
+________________________________________
+18. Sigurno oslobađanje memorije
+Nakon oslobađanja memorije pokazivač se postavlja na NULL.
+Dokaz iz koda
+free(records);
+records = NULL;
+________________________________________
+19. Datoteke i provjera pokazivača
+Projekt koristi binarne datoteke te provjerava uspješnost otvaranja datoteka.
+Dokaz iz koda
+FILE* file = fopen(FILE_NAME, "rb");
+if (file == NULL) {
+    perror("No file");
+    return;
+}
+________________________________________
+20. Korištenje fseek, ftell i rewind
+Projekt koristi funkcije za rad s pozicijom u datoteci.
+Dokaz iz koda
+fseek(file, 0, SEEK_END);
+long size = ftell(file);
+rewind(file);
+________________________________________
+21. Korištenje remove i rename
+Projekt koristi privremenu datoteku prilikom spremanja podataka.
+Dokaz iz koda
+remove(FILE_NAME);
+rename(TEMP_FILE, FILE_NAME);
+________________________________________
+22. Upravljanje pogreškama
+Projekt koristi funkcije za obradu pogrešaka.
+Dokaz iz koda
+perror("realloc failed");
+if (ferror(file)) {
+    perror("Write error");
+}
+________________________________________
+23. Sortiranje pomoću qsort
+Projekt koristi ugrađenu funkciju qsort().
+Dokaz iz koda
+qsort(records, count, sizeof(Record), compareNames);
+________________________________________
+24. Pretraživanje
+Projekt koristi binarno pretraživanje.
+Dokaz iz koda
+int index = recursiveBinarySearch(records, 0, count - 1, id);
+________________________________________
+25. Rekurzija
+Projekt koristi rekurzivnu funkciju za binarno pretraživanje.
+Dokaz iz koda
+static int recursiveBinarySearch(Record arr[], int left, int right, int id)
+________________________________________
+26. Pokazivači na funkcije
+Projekt koristi pokazivače na funkcije kroz funkciju qsort().
+Dokaz iz koda
+qsort(records, count, sizeof(Record), compareNames);
+int compareNames(const void* a, const void* b)
+________________________________________
+
