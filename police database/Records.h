@@ -23,7 +23,7 @@ typedef struct {
 
 extern Record* records;
 extern int count;
-extern int nextID;
+extern int getNextAvailableID();
 
 void loadRecords();
 void saveRecords();

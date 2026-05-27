@@ -7,7 +7,7 @@
 
 Record* records = NULL;
 int count = 0;
-int nextID = 1;
+
 
 static const char* FILE_NAME = "records.dat";
 static const char* TEMP_FILE = "temp.dat";
@@ -46,11 +46,11 @@ void createRecord() {
 	}
 
 	records = temp;
-	records[count].id = nextID++;
+	records[count].id = getNextAvailableID();
 
 	clearInputBuffer();
 
-	printf("First name: ");
+	printf("\nFirst name: ");
 	fgets(records[count].firstName, MAX_NAME, stdin);
 	records[count].firstName[strcspn(records[count].firstName, "\n")] = 0;
 
@@ -80,6 +80,7 @@ void createRecord() {
 
 	printf("Created.\n");
 }
+
 void displayShort() {
 	for (int i = 0; i < count; i++) {
 		printf("%d - %s %s\n",
@@ -158,8 +159,10 @@ void loadRecords() {
 	fclose(file);
 
 	for (int i = 0; i < count; i++) {
-		if (records[i].id >= nextID)
-			nextID = records[i].id + 1;
+		if (records[i].id <= 0) {
+			records[i].id =
+				getNextAvailableID();
+		}
 	}
 }
 
@@ -192,32 +195,43 @@ void deleteRecord() {
 }
 
 void updateRecord() {
+
 	int id;
+
 	printf("ID: ");
+
 	if (scanf("%d", &id) != 1) {
 		clearInputBuffer();
 		return;
 	}
 
 	for (int i = 0; i < count; i++) {
+
 		if (records[i].id == id) {
 
+			clearInputBuffer();
+
 			printf("New first name: ");
-			scanf("%49s", records[i].firstName);
+			fgets(records[i].firstName, MAX_NAME, stdin);
+			records[i].firstName[strcspn(records[i].firstName, "\n")] = 0;
 
 			printf("New last name: ");
-			scanf("%49s", records[i].lastName);
+			fgets(records[i].lastName, MAX_NAME, stdin);
+			records[i].lastName[strcspn(records[i].lastName, "\n")] = 0;
 
 			printf("New age: ");
+
 			while (scanf("%d", &records[i].age) != 1) {
 				clearInputBuffer();
 				printf("Invalid age: ");
 			}
 
-			printf("New crime: ");
-			scanf("%99s", records[i].crime);
-
 			clearInputBuffer();
+
+			printf("New crime: ");
+			fgets(records[i].crime, MAX_CRIME, stdin);
+			records[i].crime[strcspn(records[i].crime, "\n")] = 0;
+
 			printf("New description: ");
 			fgets(records[i].description, MAX_DESCRIPTION, stdin);
 			records[i].description[strcspn(records[i].description, "\n")] = 0;
@@ -293,22 +307,47 @@ void searchByID() {
 }
 
 void searchByName() {
+
 	char name[MAX_NAME];
 	int found = 0;
 
+	clearInputBuffer();
+
 	printf("First name: ");
-	scanf("%49s", name);
+	fgets(name, MAX_NAME, stdin);
+	name[strcspn(name, "\n")] = 0;
 
 	for (int i = 0; i < count; i++) {
+
 		if (strcmp(records[i].firstName, name) == 0) {
+
 			printf("%d %s %s\n",
 				records[i].id,
 				records[i].firstName,
 				records[i].lastName);
+
 			found = 1;
 		}
 	}
 
 	if (!found)
 		printf("Not found.\n");
+}
+
+int getNextAvailableID() {
+
+	for (int id = 1; ; id++) {
+
+		int found = 0;
+
+		for (int i = 0; i < count; i++) {
+			if (records[i].id == id) {
+				found = 1;
+				break;
+			}
+		}
+
+		if (!found)
+			return id;
+	}
 }
