@@ -24,6 +24,7 @@ typedef struct {
 extern Record* records;
 extern int count;
 extern int nextID;
+extern int unsavedChanges;
 
 void loadRecords();
 void saveRecords();
@@ -39,5 +40,7 @@ void searchByID();
 void searchByName();
 
 void sortRecords();
+
+void exitProgram();
 
 #endif

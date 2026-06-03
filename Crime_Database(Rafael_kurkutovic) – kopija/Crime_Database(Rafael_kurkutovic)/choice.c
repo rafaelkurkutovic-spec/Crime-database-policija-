@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include "records.h"
 
+#define GREEN "\033[0;32m"
+#define RED "\033[0;31m"
+#define RESET "\033[0m"
+
 typedef enum {
     MENU_CREATE = 1,
     MENU_SEARCH_ID,
@@ -24,12 +28,12 @@ int main() {
     while (1) {
 
         printf("\n===== POLICE RECORD SYSTEM =====\n");
-        printf("1.Create\n2.Search ID\n3.Search Name\n4.Short\n5.Full\n");
-        printf("6.Update\n7.Delete\n8.Save\n9.Sort\n10.Exit\nChoice: ");
+        printf("1.Create record\n2.Search ID\n3.Search Name\n4.Short list\n5.Full list\n");
+        printf("6.Update record\n7.Delete record\n8.Save records\n9.Sort records\n10.Exit program\nChoice: ");
 
         if (scanf("%d", &choice) != 1) {
-            printf("Invalid input.\n");
-            while (getchar() != '\n');
+            printf("Invalid input.\\n");
+            while (getchar() != '\\n');
             continue;
         }
 
@@ -44,17 +48,10 @@ int main() {
         case MENU_DELETE: deleteRecord(); break;
         case MENU_SAVE: saveRecords(); break;
         case MENU_SORT: sortRecords(); break;
-
-        case MENU_EXIT:
-            saveRecords();
-            if (records != NULL) {
-                free(records);
-                records = NULL;
-            }
-            return 0;
-
+        case MENU_EXIT: exitProgram(); break;
+         
         default:
-            printf("Invalid choice.\n");
+            printf("Invalid choice.\\n");
         }
     }
 }
