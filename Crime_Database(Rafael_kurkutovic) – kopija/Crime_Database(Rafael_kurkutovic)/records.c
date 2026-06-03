@@ -139,7 +139,7 @@ void createRecord() {
 
     printf("Status: %s\n",
         statusToString(records[count - 1].status));
-    
+
     unsavedChanges = 1;
 
     printf("======================\n"RESET);
@@ -305,7 +305,7 @@ void deleteRecord()
             {
                 records = temp;
             }
-            
+
             unsavedChanges = 1;
 
             printf(GREEN "\nRecord deleted successfully.\n" RESET);
@@ -363,8 +363,8 @@ void updateRecord() {
 
             printf(GREEN "Record updated successfully.\n" RESET);
             return;
-            
-            
+
+
             printf(RED "Record not found.\n" RESET);
 
 
@@ -392,10 +392,10 @@ void updateRecord() {
             printf("==========================\n"RESET);
 
         }
-        
+
     }
 
-    
+
 
 }
 
@@ -457,25 +457,25 @@ void sortRecords() {
     case 1:
         qsort(records, count, sizeof(Record), compareID);
         printf(GREEN "\nSorted by ID.\n" RESET);
-        
+
         unsavedChanges = 1;
 
         displayShort();
-        
+
         break;
-        
-        
-        
+
+
+
 
 
     case 2:
         qsort(records, count, sizeof(Record), compareNames);
         printf(GREEN "\nSorted by Name.\n" RESET);
-        
+
         unsavedChanges = 1;
 
         displayShort();
-        
+
         break;
 
     default:

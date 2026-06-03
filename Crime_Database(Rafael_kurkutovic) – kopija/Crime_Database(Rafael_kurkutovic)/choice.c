@@ -49,7 +49,7 @@ int main() {
         case MENU_SAVE: saveRecords(); break;
         case MENU_SORT: sortRecords(); break;
         case MENU_EXIT: exitProgram(); break;
-         
+
         default:
             printf("Invalid choice.\\n");
         }
